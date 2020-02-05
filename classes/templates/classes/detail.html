@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block content %}
+<style>
+    .btn{
+        margin-right: 1em;
+    }
+</style>
+
+<h1>Course Name: {{ sel_course.name }} ({{ sel_course.code }})</h1>
+<p><b>Course Description :</b> {{ sel_course.description|truncatechars:50 }}</p>
+<p><b>Section :</b> {{ sel_class.section }}</p>
+<p><b>Time :</b> {{ sel_class.time|default_if_none:'N/A' }}</p>
+<p><b>Room :</b> {{ sel_class.room|default_if_none:'N/A' }}</p>
+<p><b>Current Date/Time:</b> {% now "jS F Y H:i" %}</p>
+<a href="{% url 'class_check_in' class_id=sel_class.id %}">
+    <div class="btn btn-primary">Check in</div>
+</a>
+<hr>
+<div class="row">
+    <span class="btn btn-warning">
+        Total Students: <span class="badge badge-light">{{ sel_class.student_amount }}</span>
+    </span>
+    <span class="btn btn-success">
+        Attend: <span class="badge badge-light">{{ sel_attend.attend }}</span>
+    </span>
+    <span class="btn btn-danger">
+        Absent: <span class="badge badge-light">{{ sel_attend.absent }}</span>
+    </span>
+</div>
+{% endblock content %}
+
