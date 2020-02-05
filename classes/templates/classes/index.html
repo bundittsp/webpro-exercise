@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% block content %}
+    <div class="container">
+        <h1>Welcome to Class Attendance System</h1>
+        <br/><br/>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">Time</th>
+                    <th scope="col">Subject</th>
+                    <th scope="col">Section</th>
+                    <th scope="col">Room</th>
+                    <th scope="col">Student amount</th>
+                    <th scope="col">Detail</th>
+                    <th scope="col">Check in</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for cl in classes %}
+                <tr>
+                    <td>{{ cl.weekday }} @ {{ cl.time }}</td>
+                    <td>{{ cl.course.name }} ({{ cl.course.code }})</td>
+                    <td>{{ cl.section }}</td>
+                    <td>{{ cl.room }}</td>
+                    <td>{{ cl.student_amount }}</td>
+                    <td>
+                        <a href="{% url 'class_detail' class_id=cl.id %}">
+                            <div class="btn btn-warning" id="{{cl.id}}">View detail</div>
+                        </a>
+                    </td>
+                    <td>
+                        <a href="{% url 'class_check_in' class_id=cl.id %}">
+                            <div class="btn btn-primary" id="sub_{{cl.id}}">Check in</div>
+                        </a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}
