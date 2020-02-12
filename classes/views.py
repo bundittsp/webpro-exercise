@@ -13,9 +13,9 @@ def index(request):
         cl['course'] = [co for co in courses if co['id'] == cl['course_id']][0]
     
     context = {
-        'classes': classes
+        'new_classes': classes
     }
-    return render(request, 'classes/index.html', context=context)
+    return render(request, 'attedance/index.html', context=context)
 
 def detail(request, class_id):
     """

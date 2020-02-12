@@ -10,6 +10,6 @@
     <p><b>Room :</b> {{ sel_class.room|default_if_none:'N/A' }}</p>
     <p><b>Current Time:</b> {% now "H:i" %}</p>
     <p class="font-weight-lighter">Please scan QR code to check in to class</p>
-    <img class="qrcode" src="{% static 'qrcode.png' %}" alt="qrcode" width="20%">
+    <img class="qrcode" src="{% static 'images/qrcode.png' %}" alt="qrcode" width="20%">
 </div>
 {% endblock content %}
