@@ -9,6 +9,13 @@ class Course(models.Model):
     academic_year = models.CharField(max_length=4)
 
 
+class Student(models.Model):
+    student_code = models.CharField(max_length=10)
+    first_name = models.CharField(max_length=50)
+    last_name = models.CharField(max_length=100)
+    year = models.SmallIntegerField()
+
+
 class ClassRoom(models.Model):
     course = models.ForeignKey(Course, on_delete=models.PROTECT)
     section = models.SmallIntegerField()
@@ -26,3 +33,4 @@ class ClassRoom(models.Model):
     end_time = models.TimeField()
     room = models.CharField(max_length=10)
     student_amount = models.IntegerField(default=0)
+    students = models.ManyToManyField(Student, through='classes.StudentAttendance')
