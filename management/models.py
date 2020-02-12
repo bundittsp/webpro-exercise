@@ -2,6 +2,9 @@ from django.db import models
 
 
 # Create your models here.
+class Room(models.Model):
+    name = models.CharField(max_length=10)
+
 class Course(models.Model):
     name = models.CharField(max_length=50)
     description = models.TextField(null=True, blank=True)
@@ -31,6 +34,6 @@ class ClassRoom(models.Model):
     weekday = models.CharField(max_length=2, choices=WEEKDAYS)
     start_time = models.TimeField()
     end_time = models.TimeField()
-    room = models.CharField(max_length=10)
+    room = models.ForeignKey(Room, on_delete=models.PROTECT)
     student_amount = models.IntegerField(default=0)
     students = models.ManyToManyField(Student, through='classes.StudentAttendance')
