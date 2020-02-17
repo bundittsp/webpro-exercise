@@ -8,15 +8,15 @@ class Room(models.Model):
 class Course(models.Model):
     name = models.CharField(max_length=50)
     description = models.TextField(null=True, blank=True)
-    semester = models.CharField(max_length=1)
-    academic_year = models.CharField(max_length=4)
+    semester = models.CharField(max_length=1) # ภาคเรียน
+    academic_year = models.CharField(max_length=4) # ปีการศึกษา
 
 
 class Student(models.Model):
     student_code = models.CharField(max_length=10)
     first_name = models.CharField(max_length=50)
     last_name = models.CharField(max_length=100)
-    year = models.SmallIntegerField()
+    year = models.SmallIntegerField() # ชั้นปี
 
 
 class ClassRoom(models.Model):
@@ -35,5 +35,8 @@ class ClassRoom(models.Model):
     start_time = models.TimeField()
     end_time = models.TimeField()
     room = models.ForeignKey(Room, on_delete=models.PROTECT)
-    student_amount = models.IntegerField(default=0)
-    students = models.ManyToManyField(Student, through='classes.StudentAttendance')
+    student_amount = models.IntegerField(default=0) # จำนวน นศ. ที่ลงทะเบียนทั้งหมด
+    students = models.ManyToManyField(
+        Student, 
+        through='classes.StudentAttendance'
+    )

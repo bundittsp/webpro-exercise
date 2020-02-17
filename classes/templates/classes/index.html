@@ -3,16 +3,24 @@
     <div class="container">
         <h1>Welcome to Class Attendance System</h1>
         <br/><br/>
+        <form class="form-inline" method="GET" action="{% url 'index' %}">
+            <div class="form-group">
+                <label for="inputSearch">ค้นหาชื่อรายวิชา:</label>
+                <input type="text" class="form-control ml-3" id="inputSearch" 
+                    name="inputSearch" placeholder="Search" value="{{search_txt}}">
+            </div>
+            <button type="submit" class="btn btn-primary ml-3">Submit</button>
+        </form>
+        <br/><br/>
         <table class="table">
             <thead>
                 <tr>
-                    <th scope="col">Time</th>
-                    <th scope="col">Subject</th>
+                    <th scope="col">เวลา</th>
+                    <th scope="col">ชื่อรายวิชา</th>
                     <th scope="col">Section</th>
-                    <th scope="col">Room</th>
-                    <th scope="col">Student amount</th>
-                    <th scope="col">Detail</th>
-                    <th scope="col">Check in</th>
+                    <th scope="col">ห้อง</th>
+                    <th scope="col">จำนวนนักเรียนที่ลงทะเบียน</th>
+                    <th scope="col">รายละเอียด</th>
                 </tr>
             </thead>
             <tbody>
@@ -26,11 +34,6 @@
                     <td>
                         <a href="{% url 'class_detail' class_id=cl.id %}">
                             <div class="btn btn-warning" id="{{cl.id}}">View detail</div>
-                        </a>
-                    </td>
-                    <td>
-                        <a href="{% url 'class_check_in' class_id=cl.id %}">
-                            <div class="btn btn-primary" id="sub_{{cl.id}}">Check in</div>
                         </a>
                     </td>
                 </tr>
