@@ -1,5 +1,8 @@
+from astroid import objects
 from django.http import HttpResponse
-from django.shortcuts import render, redirect
+from django.shortcuts import redirect, render
+
+from management.models import ClassRoom
 
 
 # Create your views here.
@@ -16,7 +19,13 @@ def class_list(request):
     """
         แสดงข้อมูล classroom ทั้งหมดในระบบ
     """
-    return render(request, 'management/class_list.html')
+    classrooms = ClassRoom.objects.all()
+    day_dict = {v[0]: v[1] for v in ClassRoom.WEEKDAYS}
+    for classroom in classrooms:
+        classroom.weekday = day_dict[classroom.weekday]
+    return render(request, 'management/class_list.html', context={
+        'classrooms': classrooms
+    })
 
 def class_add(request):
     """
@@ -28,5 +37,6 @@ def class_delete(request, class_id):
     """
         ลบข้อมูล classroom โดยลบข้อมูลที่มี id = class_id
     """
+    classroom = ClassRoom.objects.get(id=class_id)
+    classroom.delete()
     return redirect(to='class_list')
-

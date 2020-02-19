@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% block content %}
+    <div class="container">
+        <h1>จัดการข้อมูลชั้นเรียน (Classroom)</h1>
+        <br/><br/>
+        <form class="form-inline" method="GET" action="{% url 'index' %}">
+            <div class="form-group">
+                <label for="inputSearch">ค้นหาชื่อรายวิชา:</label>
+                <input type="text" class="form-control ml-3" id="inputSearch" 
+                    name="inputSearch" placeholder="Search" value="{{search_txt}}">
+            </div>
+            <button type="submit" class="btn btn-primary ml-3">Submit</button>
+        </form>
+        <br/><br/>
+        <table class="table">
+            <thead>
+                <tr>
+                    
+                    <th scope="col">รหัสวิชา</th>
+                    <th scope="col">ชื่อรายวิชา</th>
+                    <th scope="col">Section</th>
+                    <th scope="col">วัน</th>
+                    <th scope="col">เวลา</th>
+                    <th scope="col">ห้อง</th>
+                    <th scope="col">จำนวนนักเรียน</th>
+                    <th scope="col">ลบข้อมูล</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for cl in classrooms %}
+                <tr>
+                    <td>{{ cl.course.id }}</td>
+                    <td>{{ cl.course.name }}</td>
+                    <td>{{ cl.section }}</td>
+                    <td>{{ cl.weekday }}</td>
+                    <td>{{ cl.start_time }} - {{ cl.end_time }}</td>
+                    <td>{{ cl.room.name }}</td>
+                    <td>{{ cl.student_amount }}</td>
+                    <td>
+                        <a href="{% url 'class_delete' class_id=cl.id %}">
+                            <div class="btn btn-warning" id="{{cl.id}}">ลบชั้นเรียน</div>
+                        </a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}
+
+{% block footer %}
+    Footer of classroom list page!!!
+{% endblock %}
