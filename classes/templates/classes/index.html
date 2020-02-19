@@ -9,25 +9,44 @@
                 <input type="text" class="form-control ml-3" id="inputSearch" 
                     name="inputSearch" placeholder="Search" value="{{search_txt}}">
             </div>
+            <div class="form-group mx-3">
+                <label for="semester">ภาคเรียน</label>
+                <select class="form-control" id="semester" name="semester">
+                    <option value="">--ทั้งหมด--</option>
+                    <option value="1" {% if semester == '1' %}selected{% endif %}>1</option>
+                    <option value="2" {% if semester == '2' %}selected{% endif %}>2</option>
+                </select>
+            </div>
+            <div class="form-group mx-3">
+                <label for="year">ปีการศึกษา</label>
+                <select class="form-control" id="year" name="year">
+                    <option value="">--ทั้งหมด--</option>
+                    <option value="2018" {% if year == '2018' %}selected{% endif %}>2561</option>
+                    <option value="2019" {% if year == '2019' %}selected{% endif %}>2562</option>
+                    <option value="2020" {% if year == '2020' %}selected{% endif %}>2563</option>
+                </select>
+            </div>
             <button type="submit" class="btn btn-primary ml-3">Submit</button>
         </form>
         <br/><br/>
         <table class="table">
             <thead>
                 <tr>
+                    <th scope="col">วัน</th>
                     <th scope="col">เวลา</th>
                     <th scope="col">ชื่อรายวิชา</th>
                     <th scope="col">Section</th>
                     <th scope="col">ห้อง</th>
-                    <th scope="col">จำนวนนักเรียนที่ลงทะเบียน</th>
+                    <th scope="col">จำนวนนักเรียน</th>
                     <th scope="col">รายละเอียด</th>
                 </tr>
             </thead>
             <tbody>
                 {% for cl in classes %}
                 <tr>
-                    <td>{{ cl.weekday }} @ {{ cl.time }}</td>
-                    <td>{{ cl.course.name }} ({{ cl.course.code }})</td>
+                    <td>{{ cl.weekday }}</td>
+                    <td>{{ cl.start_time }} - {{ cl.end_time }}</td>
+                    <td>{{ cl.course.name }} ({{ cl.course.id }})</td>
                     <td>{{ cl.section }}</td>
                     <td>{{ cl.room }}</td>
                     <td>{{ cl.student_amount }}</td>

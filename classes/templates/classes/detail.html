@@ -6,25 +6,25 @@
     }
 </style>
 
-<h1>Course Name: {{ sel_course.name }} ({{ sel_course.code }})</h1>
-<p><b>Course Description :</b> {{ sel_course.description|truncatechars:50 }}</p>
-<p><b>Section :</b> {{ sel_class.section }}</p>
-<p><b>Time :</b> {{ sel_class.time|default_if_none:'N/A' }}</p>
-<p><b>Room :</b> {{ sel_class.room|default_if_none:'N/A' }}</p>
+<h1>Course Name: {{ classroom.course.name }} ({{ classroom.course.id }})</h1>
+<p><b>Course Description :</b> {{ classroom.course.description|truncatechars:50 }}</p>
+<p><b>Section :</b> {{ classroom.section }}</p>
+<p><b>Time :</b> {{ classroom.start_time }} - {{ classroom.end_time }}</p>
+<p><b>Room :</b> {{ classroom.room.name|default_if_none:'N/A' }}</p>
 <p><b>Current Date/Time:</b> {% now "jS F Y H:i" %}</p>
-<a href="{% url 'class_check_in' class_id=sel_class.id %}">
+<a href="{% url 'class_check_in' class_id=classroom.id %}">
     <div class="btn btn-primary">Check in</div>
 </a>
 <hr>
 <div class="row">
     <span class="btn btn-warning">
-        Total Students: <span class="badge badge-light">{{ sel_class.student_amount }}</span>
+        Total Students: <span class="badge badge-light">{{ classroom.student_amount }}</span>
     </span>
     <span class="btn btn-success">
-        Attend: <span class="badge badge-light">{{ sel_attend.attend }}</span>
+        Attend: <span class="badge badge-light">{{ attend }}</span>
     </span>
     <span class="btn btn-danger">
-        Absent: <span class="badge badge-light">{{ sel_attend.absent }}</span>
+        Absent: <span class="badge badge-light">{{ absent }}</span>
     </span>
 </div>
 {% endblock content %}
