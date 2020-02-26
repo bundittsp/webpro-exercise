@@ -1,0 +1,82 @@
+{% extends "base.html" %}
+{% block content %}
+    <div class="container">
+        <h1>เพิ่มข้อมูลชั้นเรียนใหม่ (Create New Classroom)</h1>
+        <br/>
+        {% if classroom.id %}
+            <!-- Submit to class_update view -->
+            <form method="POST" action="{% url 'class_update' class_id=classroom.id %}">
+        {% else %}
+            <!-- Submit to class_add view -->
+            <form method="POST" action="{% url 'class_add' %}">
+        {% endif %}
+        {% csrf_token %}
+            {% if msg %}<p class="text-success">{{msg}}</p>{% endif %}
+            <div class="form-row">
+                <div class="form-group col-6">
+                    <label for="course_id">เลือกวิชาเรียน:</label>
+                    <select class="form-control" id="course_id" name="course_id" required>
+                        <option value=''>---เลือก---</option>
+                        {% for course in courses %}
+                        <option value='{{course.id}}' {% if classroom.course.id == course.id %}selected{% endif %}>
+                            {{course.name}} ({{course.semester}}/{{course.academic_year}})
+                        </option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-3">
+                    <label for="section">Section:</label>
+                    <input type="number" class="form-control" name="section" id="section" value="{{classroom.section}}" required>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-6">
+                    <label for="section">วันเรียน:</label>
+                    <select class="form-control" id="weekday" name="weekday" required>
+                        <option value=''>---เลือก---</option>
+                        {% for weekday in weekdays %}
+                        <option value='{{weekday.0}}' {% if classroom.weekday == weekday.0 %}selected{% endif %}>
+                            {{weekday.1}}
+                        </option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-4">
+                    <label for="start_time">เวลาเริ่ม:</label>
+                    <input type="time" class="form-control" name="start_time" id="start_time" value="{{classroom.start_time|time:'H:i'}}" required>
+                </div>
+                <div class="form-group col-4">
+                    <label for="end_time">เวลาจบ:</label>
+                    <input type="time" class="form-control" name="end_time" id="end_time" value="{{classroom.end_time|time:'H:i'}}" required>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-4">
+                    <label for="section">ห้องเรียน:</label>
+                    <select class="form-control" id="room_id" name="room_id" required>
+                        <option value=''>---เลือก---</option>
+                        {% for room in rooms %}
+                        <option value='{{room.id}}' {% if classroom.room.id == room.id %}selected{% endif %}>
+                            {{room.name}}
+                        </option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="form-group col-4">
+                    <label for="student_amount">จำนวนนักเรียนที่ลงทะเบียน:</label>
+                    <input type="number" class="form-control" name="student_amount" id="student_amount" value="{{classroom.student_amount}}" required>
+                </div>
+            </div>
+            <button type="reset" class="btn btn-warning ml-3">Reset Form</button>
+            <button type="submit" class="btn btn-primary ml-3">Submit</button>
+        </form>
+    </div>
+{% endblock %}
+
+{% block footer %}
+    Footer of create new classroom page!!!
+{% endblock %}

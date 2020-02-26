@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% block content %}
+    <div class="container">
+        <h1>เพิ่มข้อมูลนักเรียนใหม่ (Create New Student)</h1>
+        <br/>
+        {% if student.id %}
+            <!-- Submit to student_update view -->
+            <form method="POST" action="{% url 'student_update' user_id=student.id %}">
+        {% else %}
+            <!-- Submit to student_add view -->
+            <form method="POST" action="{% url 'student_add' %}">
+        {% endif %}
+        {% csrf_token %}
+            {% if msg %}<p class="text-success">{{msg}}</p>{% endif %}
+            <div class="form-row">
+                <div class="form-group col-4">
+                    <label for="section">รหัสนักศึกษา:</label>
+                    <input type="number" class="form-control" name="username" id="username" value="{{student.username}}" required>
+                </div>
+                <div class="form-group col-6">
+                    <label for="section">ชื่อจริง:</label>
+                    <input type="text" class="form-control" name="first_name" id="first_name" value="{{student.first_name}}" required>
+                </div>
+                <div class="form-group col-6">
+                    <label for="section">นามสกุล:</label>
+                    <input type="text" class="form-control" name="last_name" id="last_name" value="{{student.last_name}}" required>
+                </div>
+                <div class="form-group col-6">
+                    <label for="section">email:</label>
+                    <input type="text" class="form-control" name="email" id="email" value="{{student.email}}" required>
+                </div>
+                <div class="form-group col-6">
+                    <label for="section">ชั้นปี:</label>
+                    <select class="form-control" id="year" name="year" required>
+                        <option value=''>---เลือก---</option>
+                        {% for i in '1234'|make_list %}
+                            <option value='{{i}}' {% if student.student.year == i %}selected{% endif %}>{{i}}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+            <button type="reset" class="btn btn-warning ml-3">Reset Form</button>
+            <button type="submit" class="btn btn-primary ml-3">Submit</button>
+        </form>
+    </div>
+{% endblock %}
+
+{% block footer %}
+    Footer of create new student page!!!
+{% endblock %}

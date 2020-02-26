@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% block content %}
+    <div class="container">
+        <h1>จัดการข้อมูลนักเรียน (Student Management)</h1>
+        <br/><br/>
+        <form class="form-inline" method="GET" action="{% url 'class_list' %}">
+            <div class="form-group">
+                <label for="search">ค้นหาชื่อ หรือ รหัสนักศึกษา:</label>
+                <input type="text" class="form-control ml-3" id="search" 
+                    name="search" placeholder="Search" value="{{search}}">
+            </div>
+            <button type="submit" class="btn btn-primary ml-3">Submit</button>
+            <a href="{% url 'student_add' %}"><button type="button" class="btn btn-secondary ml-3">Create New Student</button></a>
+        </form>
+        <br/><br/>
+        <table class="table">
+            <thead>
+                <tr>
+                    
+                    <th scope="col">รหัสนักศึกษา</th>
+                    <th scope="col">ชื่อ</th>
+                    <th scope="col">นามสกุล</th>
+                    <th scope="col">ชั้นปี</th>
+                    <th scope="col">email</th>
+                    <th scope="col">แก้ไข/ลบ</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for st in students %}
+                <tr>
+                    <td>{{ st.username }}</td>
+                    <td>{{ st.first_name }}</td>
+                    <td>{{ st.last_name }}</td>
+                    <td>{{ st.student.year }}</td>
+                    <td>{{ st.email }}</td>
+                    <td>
+                        <a href="{% url 'student_update' user_id=st.id %}">
+                            <div class="btn btn-primary" id="{{st.id}}">แก้ไข</div>
+                        </a>
+                        <a href="{% url 'student_delete' user_id=1 %}">
+                            <div class="btn btn-warning" id="{{st.id}}">ลบ</div>
+                        </a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}
+
+{% block footer %}
+    Footer of student list page!!!
+{% endblock %}

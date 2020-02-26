@@ -5,15 +5,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Base</title>
+    <title>IT Check-In</title>
     <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.css'%}">
 
     <style>
     header[role="banner"] {
-        #logo-main {
-            display: block;
-            margin: 20px auto;
-        }
+            #logo-main {
+                display: block;
+                margin: 20px auto;
+            }
         }
 
         #navbar-primary.navbar-default {
@@ -56,7 +56,7 @@
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="#">LOGO HERE</a>
+        <a class="navbar-brand" href="#">Hello {{request.user.username}}</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>

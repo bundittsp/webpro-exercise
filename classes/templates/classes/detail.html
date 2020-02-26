@@ -12,9 +12,13 @@
 <p><b>Time :</b> {{ classroom.start_time }} - {{ classroom.end_time }}</p>
 <p><b>Room :</b> {{ classroom.room.name|default_if_none:'N/A' }}</p>
 <p><b>Current Date/Time:</b> {% now "jS F Y H:i" %}</p>
-<a href="{% url 'class_check_in' class_id=classroom.id %}">
-    <div class="btn btn-primary">Check in</div>
-</a>
+{% if checked %}
+    <p class="text-success">คุณได้ทำการเช็คชื่อเข้าเรียนแล้ว</p>
+{% else %}
+    <a href="{% url 'class_check_in' class_id=classroom.id %}">
+        <div class="btn btn-primary">Check in</div>
+    </a>
+{% endif %}
 <hr>
 <div class="row">
     <span class="btn btn-warning">
